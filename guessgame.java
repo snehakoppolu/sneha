@@ -5,10 +5,10 @@ public class guessgame {
 	// Global Variables
 	static Scanner n = new Scanner(System.in);
 	static int guess = 0, counter = 0;
-	static int number = numberGenerator();
+	static int number = guessNumber();
 	
 	// numberGenerator
-	public static int numberGenerator() {
+	public static int guessNumber() {
 		Random gen = new Random();
 		int number = gen.nextInt(100)+1;
 		return number;
@@ -16,7 +16,6 @@ public class guessgame {
 	
 	// displayTitle
 	public static void displayTitle() {
-		System.out.println("=====================================");
 		System.out.println(" Guess My Number");
 		System.out.println("=====================================");
 		System.out.println("");
@@ -106,11 +105,11 @@ public class guessgame {
 		}
 	}
 	
-	// main: Main Executed Function at runtime
+	// main
 	public static void main(String[] args) {
 		Scanner s = new Scanner(System.in);
 		displayTitle();
-		System.out.println("Will this be Singleplayer or Multiplayer?");
+		System.out.println(" Singleplayer or Multiplayer?");
 		System.out.print("Type 'S' for Singleplayer or 'M' for Multiplayer: ");
 		char option = s.next().charAt(0);
 		if (option == 'S')
