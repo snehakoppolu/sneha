@@ -1,0 +1,51 @@
+<style>
+    /* Additional CSS for selected item */
+    .selected-item {
+        background-color: lightblue;
+    }
+</style>
+<script>
+    $(document).ready(function(){
+        // Function to handle submenu toggle
+        $('.dropdown-submenu .dropdown-toggle').on("click", function(e){
+            // Close any open submenus
+//            $('.dropdown-menu').not($(this).next('.dropdown-menu')).hide();
+            $(this).next('.dropdown-menu').toggle();
+            e.stopPropagation();
+            e.preventDefault();
+        });
+
+        // Function to handle item selection
+        $('.dropdown-item').on("click", function(e){
+            // Remove 'selected' class from all items
+            $('.dropdown-item').removeClass('selected-item');
+
+            // Remove checkmarks from all items
+            $('.dropdown-item .checkmark').remove();
+
+            // Add 'selected' class to clicked item
+            $(this).addClass('selected-item');
+
+            // Add checkmark to selected item
+            $(this).append('<span class="checkmark">&#10003;</span>');
+
+            // Update dropdown toggle text with selected value
+            var selectedValue = $(this).text();
+            $(this).closest('.btn-group').find('.dropdown-toggle').text(selectedValue);
+
+            // Hide the dropdown menu
+//            $(this).closest('.btn-group').find('.dropdown-menu').hide();
+
+            e.stopPropagation();
+            e.preventDefault();
+        });
+
+        // Display selected item in dropdown menu
+        $('.dropdown-item.selected-item').each(function() {
+            var selectedValue = $(this).text();
+            $(this).closest('.btn-group').find('.dropdown-toggle').text(selectedValue);
+        });
+    });
+
+
+</script>
