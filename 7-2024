@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <meta name="description" content="Bootstrap Sub-Menus">
+    <meta name="keywords" content="bootstrap dropdown jquery-plugin submenu">
+    <meta name="author" content="Vasilii A.">
+    <meta name="robots" content="nofollow">
+    <meta name="google" content="notranslate">
+    <title>Bootstrap-submenu</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="dist/css/bootstrap-submenu.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+    <link rel="stylesheet" href="assets/css/docs.css">
+    <!--<script src="https://code.jquery.com/jquery-3.6.3.slim.js" defer></script>-->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js" defer></script>
+    <script src="bootstrap-submenu.js" defer></script>
+    <script src="test.js" defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+
+<body>
+<div class="container py-3" id="container">
+    <div class="row">
+        <div class="col-sm-5 mb-3" id="dropdown-selected1">
+            <div class="dropdown">
+                <button   class="btn btn-secondary dropdown-toggle "   id="dropdown-selected-items1" type="button" data-toggle="dropdown" data-submenu>
+                    Dropdown
+                </button>
+                <div class="dropdown-menu">
+                    <!--<div class="dropdown-selected"></div>-->
+                    <div class="dropdown dropright dropdown-submenu">
+                        <button class="dropdown-item dropdown-toggle" type="button" data-toggle="dropdown">Action</button>
+                        <div class="dropdown-menu">
+                            <button class="dropdown-item" type="button">Sub action</button>
+                            <div class="dropdown dropright dropdown-submenu">
+                                <button class="dropdown-item dropdown-toggle" type="button">Another sub action</button>
+                                <div class="dropdown-menu">
+                                    <button class="dropdown-item" type="button">Sub action1</button>
+                                    <button class="dropdown-item" type="button">Another sub action2</button>
+                                    <button class="dropdown-item" type="button">Something else here3</button>
+                                </div>
+                            </div>
+                            <button class="dropdown-item" type="button">Something else here</button>
+                            <button class="dropdown-item" type="button" disabled>Disabled action</button>
+                            <div class="dropdown dropright dropdown-submenu">
+                                <button class="dropdown-item dropdown-toggle" type="button">Another action</button>
+                                <div class="dropdown-menu">
+                                    <button class="dropdown-item" type="button">Sub action21</button>
+                                    <button class="dropdown-item" type="button">Another sub action22</button>
+                                    <button class="dropdown-item" type="button">Something else here23</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dropdown-header">Dropdown header</div>
+                    <div class="dropdown dropright dropdown-submenu">
+                        <button class="dropdown-item dropdown-toggle" type="button">Another action</button>
+                        <div class="dropdown-menu">
+                            <button class="dropdown-item" type="button">Sub action</button>
+                            <button class="dropdown-item" type="button">Another sub action</button>
+                            <button class="dropdown-item" type="button">Something else here</button>
+                        </div>
+                    </div>
+                    <button class="dropdown-item" type="button">Something else here</button>
+                    <div class="dropdown-divider"></div>
+                    <button class="dropdown-item" type="button">Separated link</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-5 mb-3" id="dropdown-selected2">
+            <div class="dropdown">
+                <button  class="btn btn-secondary dropdown-toggle "  id="dropdown-selected-items2" type="button" data-toggle="dropdown" data-submenu>
+                    Dropdown
+                </button>
+                <div class="dropdown-menu">
+                    <div class="dropdown-selected"></div>
+                    <div class="dropdown dropright dropdown-submenu">
+                        <button class="dropdown-item dropdown-toggle" type="button" data-toggle="dropdown">Action</button>
+                        <div class="dropdown-menu">
+                            <button class="dropdown-item" type="button">Sub action</button>
+                            <div class="dropdown dropright dropdown-submenu">
+                                <button class="dropdown-item dropdown-toggle" type="button">Another sub action</button>
+                                <div class="dropdown-menu">
+                                    <button class="dropdown-item" type="button">Sub action1</button>
+                                    <button class="dropdown-item" type="button">Another sub action2</button>
+                                    <button class="dropdown-item" type="button">Something else here3</button>
+                                </div>
+                            </div>
+                            <button class="dropdown-item" type="button">Something else here</button>
+                            <button class="dropdown-item" type="button" disabled>Disabled action</button>
+                            <div class="dropdown dropright dropdown-submenu">
+                                <button class="dropdown-item dropdown-toggle" type="button">Another action</button>
+                                <div class="dropdown-menu">
+                                    <button class="dropdown-item" type="button">Sub action21</button>
+                                    <button class="dropdown-item" type="button">Another sub action22</button>
+                                    <button class="dropdown-item" type="button">Something else here23</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dropdown-header">Dropdown header</div>
+                    <div class="dropdown dropright dropdown-submenu">
+                        <button class="dropdown-item dropdown-toggle" type="button">Another action</button>
+                        <div class="dropdown-menu">
+                            <button class="dropdown-item" type="button">Sub action</button>
+                            <button class="dropdown-item" type="button">Another sub action</button>
+                            <button class="dropdown-item" type="button">Something else here</button>
+                        </div>
+                    </div>
+                    <button class="dropdown-item" type="button">Something else here</button>
+                    <div class="dropdown-divider"></div>
+                    <button class="dropdown-item" type="button">Separated link</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a class="js-scroll-top scroll-top btn btn-primary btn-sm" href="#container" hidden>
+        <i class="bi bi-arrow-up"></i>
+    </a>
+</div>
+<script>
+    $(document).ready(function () {
+        var selectedValue1 = '';
+        var selectedValue2 = '';
+
+        $('.dropdown-submenu .dropdown-toggle').on("click", function(e) {
+//            var submenu = $(this).next('.dropdown-menu');
+//            $('.dropdown-menu').not(submenu).hide();
+            submenu.toggle();
+        });
+
+        $('.dropdown-item').on("click", function(e) {
+//            var dropdownID = $(this).closest('.dropdown').attr('id');
+             if($('#dropdown-selected2'))  {
+                $('.dropdown-item').removeClass('selected-item');
+                $(this).addClass('selected-item');
+            } else  {
+                $('.dropdown-item').removeClass('selected-item');
+                $(this).addClass('selected-item');
+            }
+        });
+
+        $('.dropdown').on('hide.bs.dropdown', function() {
+//            var dropdownID = $(this).closest('.dropdown').attr('id');
+            if($('#dropdown-selected1')) {
+                alert("dropdown-selected1")
+                selectedValue1 = $('.selected-item').text();
+                $('#dropdown-selected-items1').text(selectedValue1);
+//                $('.dropdown-menu').not($(this).find('.dropdown-menu')).hide();
+            } else if($('#dropdown-selected2')) {
+                alert("dropdown-selected2")
+                selectedValue2 = $('.selected-item').text();
+                $('#dropdown-selected-items2').text(selectedValue2);
+//                $('.dropdown-menu').not($(this).find('.dropdown-menu')).hide();
+            }
+        });
+    });
+
+
+    2---
+    $(document).ready(function () {
+        var firstToggle1 = true;
+        var firstToggle2 = true;
+
+        // Handling submenu toggle for dropdown 1
+        $('#dropdown-selected-items1').on("click", function(e) {
+            if (firstToggle1) {
+                $(this).next('.dropdown-menu').toggle();
+                firstToggle1 = false;
+            } else {
+                $('.dropdown-menu').not($(this).next('.dropdown-menu')).hide();
+                $(this).next('.dropdown-menu').toggle();
+            }
+        });
+
+        // Handling submenu toggle for dropdown 2
+        $('#dropdown-selected-items2').on("click", function(e) {
+            if (firstToggle2) {
+                $(this).next('.dropdown-menu').toggle();
+                firstToggle2 = false;
+            } else {
+                $('.dropdown-menu').not($(this).next('.dropdown-menu')).hide();
+                $(this).next('.dropdown-menu').toggle();
+            }
+        });
+
+        // Handling selection of dropdown items for dropdown 1
+        $('#dropdown-selected1 .dropdown-item').on("click", function(e) {
+            $('#dropdown-selected1 .dropdown-item').removeClass('selected-item');
+            $(this).addClass('selected-item');
+        });
+
+        // Handling selection of dropdown items for dropdown 2
+        $('#dropdown-selected2 .dropdown-item').on("click", function(e) {
+            $('#dropdown-selected2 .dropdown-item').removeClass('selected-item');
+            $(this).addClass('selected-item');
+        });
+
+        // Handling closing of dropdowns
+        $('.dropdown').on('hide.bs.dropdown', function() {
+            var selectedValue = $(this).find('.selected-item').text();
+            $(this).find('.dropdown-toggle').text(selectedValue);
+        });
+    });
+
+
+    ---3
+    $(document).ready(function () {
+        var selectedValue1 = '';
+        var selectedValue2 = '';
+
+        var firstToggle1 = true;
+        var firstToggle2 = true;
+
+        $('#dropdown-selected-items1').on("click", function(e) {
+            // Check if it's the first toggle for dropdown 1
+            if (firstToggle1) {
+                // Toggle the submenu for dropdown 1
+                $(this).next('.dropdown-menu').toggle();
+                // Update the flag for dropdown 1
+                firstToggle1 = false;
+            } else {
+                // Submenu already toggled, so do nothing
+            }
+        });
+
+        $('#dropdown-selected-items2').on("click", function(e) {
+            // Check if it's the first toggle for dropdown 2
+            if (firstToggle2) {
+                // Toggle the submenu for dropdown 2
+                $(this).next('.dropdown-menu').toggle();
+                // Update the flag for dropdown 2
+                firstToggle2 = false;
+            } else {
+                // Submenu already toggled, so do nothing
+            }
+        });
+
+        $('.dropdown-item').on("click", function(e) {
+            // Check which dropdown is clicked
+            if ($(this).closest('.dropdown').attr('id') === 'dropdown-selected1') {
+                // Handle selection for dropdown 1
+                $('.dropdown-item').removeClass('selected-item');
+                $(this).addClass('selected-item');
+            } else if ($(this).closest('.dropdown').attr('id') === 'dropdown-selected2') {
+                // Handle selection for dropdown 2
+                $('.dropdown-item').removeClass('selected-item');
+                $(this).addClass('selected-item');
+            }
+        });
+
+        $('.dropdown').on('hide.bs.dropdown', function() {
+            // Check which dropdown is being closed
+            if ($(this).attr('id') === 'dropdown-selected1') {
+                // Handle closing for dropdown 1
+                selectedValue1 = $('.selected-item').text();
+                $('#dropdown-selected-items1').text(selectedValue1);
+            } else if ($(this).attr('id') === 'dropdown-selected2') {
+                // Handle closing for dropdown 2
+                selectedValue2 = $('.selected-item').text();
+                $('#dropdown-selected-items2').text(selectedValue2);
+            }
+        });
+    });
+
+
+</script>
+<style>
+    .selected-item {
+        background-color: lightblue;
+    }
+</style>
+</body>
+
+</html>
