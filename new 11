@@ -1,0 +1,333 @@
+'use strict';
+
+var exec = function() {
+    function handleScroll() {
+        document.querySelector('.js-scroll-top').hidden = window.pageYOffset < 100;
+    }
+
+    window.onscroll = handleScroll;
+    handleScroll();
+    // Для отмены закрытия при клике на неактивный элемент либо padding
+    $('.dropdown-menu').on('click', function(event) {
+        if (this === event.target) {
+            event.stopPropagation();
+        }
+    });;
+
+    var pre = '';
+
+// Event handler for clicking on the dropdown toggle
+    $('.dropdown-submenu .dropdown-toggle').one("click", function(e) {
+        var closestBoostrapSub = $(this);
+        // Get the selected item text within the boostrapSub
+        var selectedItemText = closestBoostrapSub.find('.dropdown-item.selected-item').text();
+        var current = selectedItemText;
+        if (current === pre) {
+            var dropdownMenu = $(this).next('.dropdown-menu');
+            dropdownMenu.toggle();
+            e.stopPropagation(); // Prevent the event from bubbling up to other dropdowns
+        }
+        pre = current;
+    });
+
+
+//// Event handler for clicking on the dropdown toggle
+//    $('.dropdown-submenu .dropdown-toggle').one("click", function(e) {
+//        $(this).next('.dropdown-menu').toggle();
+//        //$('.dropdown-menu').attr('style', 'display: block');
+//    });
+//
+//// Event handler for clicking on any dropdown item
+
+//    });
+//    // Event handler for clicking on the dropdown toggle
+//    $('.dropdown-submenu .dropdown-toggle').one("click", function(e) {
+//        $(this).next('.dropdown-menu').toggle();
+//    });
+//
+//// Event handler for clicking on the dropdown toggle
+//    $('.dropdown-submenu .dropdown-toggle').one("click", function(e) {
+//        var dropdownMenu = $(this).next('.dropdown-menu');
+//        dropdownMenu.toggle();
+//        e.stopPropagation(); // Prevent the event from bubbling up to other dropdowns
+//    });
+//
+//// Event handler for clicking on any dropdown item
+    $('.dropdown-item').on("click", function() {
+        var dropdownMenu = $(this).closest('.dropdown-menu');
+        if (dropdownMenu.find('.dropdown-item.selected-item').length > 0) {
+            $('.dropdown-menu').removeAttr('style');
+        }
+    });
+
+
+    //var selectedItemsChanged = false;
+
+//// Event handler for clicking on any dropdown item
+//    $('.dropdown-item').on("click", function() {
+//        var dropdownMenu = $(this).closest('.dropdown-menu');
+//        if (dropdownMenu.find('.dropdown-item.selected-item').length > 0) {
+//            dropdownMenu.removeAttr('style');
+//            //selectedItemsChanged = true; // Set the flag to indicate that selected items have changed
+//        }
+//    });
+//
+//// Event handler for clicking on the dropdown toggle
+//    $('.dropdown-submenu .dropdown-toggle').one("click", function(e) {
+//        var dropdownMenu = $(this).next('.dropdown-menu');
+//
+//        // If selected items have changed, execute the event handler
+//        //if (selectedItemsChanged) {
+//            dropdownMenu.toggle();
+//            //selectedItemsChanged = false; // Reset the flag
+//        }
+//
+//        e.stopPropagation(); // Prevent the event from bubbling up to other dropdowns
+//    });
+
+//// Event handler for clicking on dropdown toggles
+//    $('.dropdown-submenu .dropdown-toggle').one("click", function(e) {
+//        var dropdownMenu = $(this).next('.dropdown-menu');
+//        dropdownMenu.toggle();
+//        e.stopPropagation(); // Prevent the event from bubbling up to other dropdowns
+//    });
+//
+////Event handler for clicking on any dropdown item
+//    $('.dropdown-item').on("click", function() {
+//        var dropdownMenu = $(this).closest('.dropdown-menu');
+//        if (dropdownMenu.find('.dropdown-item.selected-item').length > 0) {
+//            dropdownMenu.removeAttr('style');
+//        }
+//    });
+
+    //// Event handler for clicking on any dropdown item
+    //$('.dropdown-item').on("click", function() {
+    //    var dropdownMenu = $(this).closest('.dropdown-menu');
+    //    if (dropdownMenu.find('.dropdown-item.selected-item').length > 0) {
+    //        console.log(dropdownMenu.find('.dropdown-item.selected-item').length);
+    //        dropdownMenu.removeAttr('style');
+    //        console.log($(this).hasClass('selected-item'));
+    //
+    //    }
+    //});
+
+    $('.boostrapSub').on('click', '.dropdown-item', function(e) {
+        // Get the closest boostrapSub
+        var closestBoostrapSub = $(this).closest('.boostrapSub');
+        // Remove the selected class from all dropdown items in the current boostrapSub
+        closestBoostrapSub.find('.dropdown-item').removeClass('selected-item');
+        // Add the selected class to the clicked dropdown item
+        $(this).addClass('selected-item');
+    });
+
+    $('.boostrapSub').on('hide.bs.dropdown', function() {
+        // Get the closest boostrapSub
+        var closestBoostrapSub = $(this);
+        // Get the selected item text within the boostrapSub
+        var selectedItemText = closestBoostrapSub.find('.dropdown-item.selected-item').text();
+        //alert("selectedItemText")
+        // Update the dropdown toggle text with the selected item text
+        closestBoostrapSub.find('.dropdown-menuids').text(selectedItemText);
+        //if (selectedItemText.length > 0) {
+        //    alert("ff") $('.dropdown-submenu .dropdown-toggle').on("click", function(e) {
+        var submenu = $(this).next('.dropdown-menu');
+        $('.dropdown-menu').removeClass('show');
+    });
+
+
+    $('[data-submenu]').submenupicker();
+
+
+};
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', exec);
+} else {
+    exec();
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <meta name="description" content="Bootstrap Sub-Menus">
+    <meta name="keywords" content="bootstrap dropdown jquery-plugin submenu">
+    <meta name="author" content="Vasilii A.">
+    <meta name="robots" content="nofollow">
+    <meta name="google" content="notranslate">
+    <title>Bootstrap-submenu</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="dist/css/bootstrap-submenu.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+    <link rel="stylesheet" href="assets/css/docs.css">
+    <!--<script src="https://code.jquery.com/jquery-3.6.3.slim.js" defer></script>-->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js" defer></script>
+    <script src="bootstrap-submenu.js" defer></script>
+    <script src="test.js" defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>s
+<body>
+<div class="container py-3" id="container">
+    <div class="row">
+        <div class="col-sm-5 mb-3 boostrapSub" id="dropdown-selected1">
+            <div class="dropdown">
+                <button   class="btn btn-secondary dropdown-toggle dropdown-menuids "    id="dropdown-selected-itemsids" type="button" data-toggle="dropdown" data-submenu>
+                    Dropdown
+                </button>
+                <div class="dropdown-menu dropdown-divmenu">
+                    <!--<div class="dropdown-selected"></div>-->
+                    <div class="dropdown dropright dropdown-submenu  dropdown-bootsrapmenu">
+                        <button class="dropdown-item dropdown-toggle button-selector" type="button" data-toggle="dropdown">Action</button>
+                        <div class="dropdown-menu dropdown-divmenu">
+                            <button class="dropdown-item" type="button">Sub action</button>
+                            <div class="dropdown dropright dropdown-submenu  dropdown-bootsrapmenu">
+                                <button class="dropdown-item dropdown-toggle" type="button">Another sub action</button>
+                                <div class="dropdown-menu dropdown-divmenu">
+                                    <button class="dropdown-item" type="button">Sub action1</button>
+                                    <button class="dropdown-item" type="button">Another sub action2</button>
+                                    <button class="dropdown-item" type="button">Something else here3</button>
+                                </div>
+                            </div>
+                            <button class="dropdown-item" type="button">Something else here</button>
+                            <button class="dropdown-item" type="button" disabled>Disabled action</button>
+                            <div class="dropdown dropright">
+                                <button class="dropdown-item dropdown-toggle" type="button">Another action</button>
+                                <div class="dropdown-menu dropdown-divmenu">
+                                    <button class="dropdown-item" type="button">Sub action21</button>
+                                    <button class="dropdown-item" type="button">Another sub action22</button>
+                                    <button class="dropdown-item" type="button">Something else here23</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dropdown-header">Dropdown header</div>
+                    <div class="dropdown dropright dropdown-submenu dropdown-bootsrapmenu">
+                        <button class="dropdown-item dropdown-toggle" type="button">Another action</button>
+                        <div class="dropdown-menu dropdown-divmenu">
+                            <button class="dropdown-item" type="button">Sub action</button>
+                            <button class="dropdown-item" type="button">Another sub action</button>
+                            <button class="dropdown-item" type="button">Something else here</button>
+                        </div>
+                    </div>
+                    <button class="dropdown-item" type="button">Something else here</button>
+                    <div class="dropdown-divider"></div>
+                    <button class="dropdown-item" type="button">Separated link</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-5 mb-3 boostrapSub" id="dropdown-selected2">
+            <div class="dropdown">
+                <button  class="btn btn-secondary dropdown-toggle dropdown-menuids "  id="dropdown-selected-items3" type="button" data-toggle="dropdown" data-submenu>
+                    Dropdown
+                </button>
+                <div class="dropdown-menu dropdown-divmenu">
+                    <div class="dropdown-selected"></div>
+                    <div class="dropdown dropright dropdown-submenu dropdown-bootsrapmenu">
+                        <button class="dropdown-item dropdown-toggle" type="button" data-toggle="dropdown">Action</button>
+                        <div class="dropdown-menu dropdown-divmenu">
+                            <button class="dropdown-item" type="button">Sub action</button>
+                            <div class="dropdown dropright dropdown-submenu dropdown-bootsrapmenu">
+                                <button class="dropdown-item dropdown-toggle" type="button">Another sub action</button>
+                                <div class="dropdown-menu dropdown-divmenu">
+                                    <button class="dropdown-item" type="button">Sub action1</button>
+                                    <button class="dropdown-item" type="button">Another sub action2</button>
+                                    <button class="dropdown-item" type="button">Something else here3</button>
+                                </div>
+                            </div>
+                            <button class="dropdown-item" type="button">Something else here</button>
+                            <button class="dropdown-item" type="button" disabled>Disabled action</button>
+                            <div class="dropdown dropright dropdown-submenu dropdown-bootsrapmenu">
+                                <button class="dropdown-item dropdown-toggle" type="button">Another action</button>
+                                <div class="dropdown-menu dropdown-divmenu">
+                                    <button class="dropdown-item" type="button">Sub action21</button>
+                                    <button class="dropdown-item" type="button">Another sub action22</button>
+                                    <button class="dropdown-item" type="button">Something else here23</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dropdown-header">Dropdown header</div>
+                    <div class="dropdown dropright dropdown-submenu dropdown-bootsrapmenu">
+                        <button class="dropdown-item dropdown-toggle" type="button">Another action</button>
+                        <div class="dropdown-menu dropdown-divmenu">
+                            <button class="dropdown-item" type="button">Sub action</button>
+                            <button class="dropdown-item" type="button">Another sub action</button>
+                            <button class="dropdown-item" type="button">Something else here</button>
+                        </div>
+                    </div>
+                    <button class="dropdown-item" type="button">Something else here</button>
+                    <div class="dropdown-divider"></div>
+                    <button class="dropdown-item" type="button">Separated link</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-5 mb-3 boostrapSub" id="dropdown-selected3">
+            <div class="dropdown">
+                <button  class="btn btn-secondary dropdown-toggle dropdown-menuids "  id="dropdown-selected-items2" type="button" data-toggle="dropdown" data-submenu>
+                    Dropdown
+                </button>
+                <div class="dropdown-menu dropdown-divmenu">
+                    <div class="dropdown-selected"></div>
+                    <div class="dropdown dropright dropdown-submenu dropdown-bootsrapmenu">
+                        <button class="dropdown-item dropdown-toggle" type="button" data-toggle="dropdown">Action</button>
+                        <div class="dropdown-menu dropdown-divmenu">
+                            <button class="dropdown-item" type="button">Sub action</button>
+                            <div class="dropdown dropright dropdown-submenu dropdown-bootsrapmenu">
+                                <button class="dropdown-item dropdown-toggle" type="button">Another sub action</button>
+                                <div class="dropdown-menu dropdown-divmenu">
+                                    <button class="dropdown-item" type="button">Sub action1</button>
+                                    <button class="dropdown-item" type="button">Another sub action2</button>
+                                    <button class="dropdown-item" type="button">Something else here3</button>
+                                </div>
+                            </div>
+                            <button class="dropdown-item" type="button">Something else here</button>
+                            <button class="dropdown-item" type="button" disabled>Disabled action</button>
+                            <div class="dropdown dropright dropdown-submenu dropdown-bootsrapmenu">
+                                <button class="dropdown-item dropdown-toggle" type="button">Another action</button>
+                                <div class="dropdown-menu dropdown-divmenu">
+                                    <button class="dropdown-item" type="button">Sub action21</button>
+                                    <button class="dropdown-item" type="button">Another sub action22</button>
+                                    <button class="dropdown-item" type="button">Something else here23</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dropdown-header">Dropdown header</div>
+                    <div class="dropdown dropright dropdown-submenu dropdown-bootsrapmenu">
+                        <button class="dropdown-item dropdown-toggle" type="button">Another action</button>
+                        <div class="dropdown-menu dropdown-divmenu">
+                            <button class="dropdown-item" type="button">Sub action</button>
+                            <button class="dropdown-item" type="button">Another sub action</button>
+                            <button class="dropdown-item" type="button">Something else here</button>
+                        </div>
+                    </div>
+                    <button class="dropdown-item" type="button">Something else here</button>
+                    <div class="dropdown-divider"></div>
+                    <button class="dropdown-item" type="button">Separated link</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <a class="js-scroll-top scroll-top btn btn-primary btn-sm" href="#container" hidden>
+        <i class="bi bi-arrow-up"></i>
+    </a>
+</div>
+<style>
+    .selected-item {
+        background-color: lightblue;
+    } .block {
+          display: none; !important; /* Initially hide */
+      }
+    /*.edit-mode .block {*/
+        /*display: block; *//* Show in edit mode */
+    /*}*/
+
+</style>
+</body>
+
+</html>
