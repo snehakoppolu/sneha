@@ -1,0 +1,117 @@
+'use strict';
+
+var exec = function() {
+    function handleScroll() {
+        document.querySelector('.js-scroll-top').hidden = window.pageYOffset < 100;
+    }
+
+    window.onscroll = handleScroll;
+    handleScroll();
+// Event handler for submenu toggle click
+    $('.dropdown-submenu').on("click", ".dropdown-toggle", function(e) {
+        var dropdownMenu = $(this).next('.dropdown-menu');
+        var isOpen = dropdownMenu.is(":visible");
+
+        // Close all other open submenus and deselect other toggles within the same parent
+        $(this).closest('.dropdown-submenu').siblings('.dropdown-submenu').find('.dropdown-toggle').removeClass('active');
+        $(this).closest('.dropdown-submenu').siblings('.dropdown-submenu').find('.dropdown-menu').hide();
+
+        if (isOpen && !$(this).hasClass("active")) {
+            dropdownMenu.hide();
+        }
+        // Toggle the submenu visibility
+        dropdownMenu.toggle();
+        $(this).toggleClass('active');
+        if (isOpen && !hasSelectedItems) {
+            dropdownMenu.hide();
+        }
+
+        $('.dropdown-menu .dropdown-toggle').removeClass('active');
+        $(this).toggleClass('active');
+        e.stopPropagation();
+    });
+
+    $(document).on("click", function(e) {
+        if (!$(e.target).closest('.dropdown-submenu').length) {
+            //$('.dropdown-submenu .dropdown-menu').hide();
+            $('.dropdown-submenu .dropdown-toggle').removeClass('active');
+            $('.dropdown-submenu > .dropdown-item').removeClass('active');
+        }
+    });
+
+
+    $('.boostrapSub').on('click', '.dropdown-item', function(e) {
+        // Get the closest boostrapSub
+        var closestBoostrapSub = $(this).closest('.boostrapSub');
+        // Remove the selected class from all dropdown items in the current boostrapSub
+        closestBoostrapSub.find('.dropdown-item').removeClass('selected-item');
+        // Add the selected class to the clicked dropdown item
+        $(this).addClass('selected-item');
+    });
+
+    $('.boostrapSub').on('hide.bs.dropdown', function() {
+        // Get the closest boostrapSub
+        var closestBoostrapSub = $(this);
+        // Get the selected item text within the boostrapSub
+        var selectedItemText = closestBoostrapSub.find('.dropdown-item.selected-item').text();
+        //alert("selectedItemText"+closestBoostrapSub);
+        // Update the dropdown toggle text with the selected item text
+        closestBoostrapSub.find('.dropdown-menuids').text(selectedItemText);
+        //if (selectedItemText.length > 0) {
+        //    alert("ff") $('.dropdown-submenu .dropdown-toggle').on("click", function(e) {
+        //var submenu = $(this).next('.dropdown-menu');
+        //toggleDropdownMenu($(this), selectedItemText, e);
+        //$('.dropdown-submenu .dropdown-toggle').one("click", toggleDropdownMenu(selectedItemText));
+        //$('.dropdown-menu').removeClass('show');
+    });
+
+//    $('.dropdown-menu').on("click", ".dropdown-toggle", function(e) {
+//        var menuId = $(this).data('menu-id');
+//        var dropdownMenu = $('#' + menuId + '.dropdown-menu');
+//        var isOpen = dropdownMenu.is(":visible");
+//        var dependentToggleClass = $(this).data('dependent-toggle-class');
+//
+//        // Close all other open dropdown menus
+//        $('.dropdown-menu').not(dropdownMenu).hide();
+//
+//        // Toggle the visibility of the current dropdown menu
+//        dropdownMenu.toggle();
+//
+//        // Close the dropdown menu if it was already open
+//        if (isOpen) {
+//            // Close if no selected item or toggle is not active
+//            if (!dropdownMenu.find(".dropdown-item.active").length || !$(this).hasClass("active")) {
+//                dropdownMenu.hide();
+//            }
+//        }
+//
+//        // Mark this toggle as active
+//        $('#' + menuId + ' .dropdown-toggle').removeClass('active');
+//        $(this).toggleClass('active');
+//
+//        // Check if all dependent toggle elements should be hidden
+//        if (!dropdownMenu.find(".dropdown-item.active").length && dependentToggleClass) {
+//            $('.' + dependentToggleClass).hide();
+//        }
+//
+//        e.stopPropagation();
+//    });
+//
+//// Close dropdown menus when clicking outside
+//    $(document).on("click", function(e) {
+//        if (!$(e.target).closest('.dropdown-menu').length) {
+//            $('.dropdown-menu').hide();
+//            $('.dropdown-menu .dropdown-toggle').removeClass('active');
+//        }
+//    });
+
+    $('[data-submenu]').submenupicker();
+
+
+};
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', exec);
+} else {
+    exec();
+}
