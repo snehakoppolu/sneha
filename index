@@ -1,0 +1,143 @@
+'use strict';
+
+var exec = function() {
+    function handleScroll() {
+        document.querySelector('.js-scroll-top').hidden = window.pageYOffset < 100;
+    }
+
+    window.onscroll = handleScroll;
+    handleScroll();
+
+
+    // Event handler for submenu toggle click
+    $('.dropdown-submenu').on("click", ".dropdown-toggle", function(e) {
+        var dropdownMenu = $(this).next('.dropdown-menu');
+        var parentMenu = $(this).closest('.dropdown-menu');
+        var allMenus = $('.dropdown-menu');
+
+        // Find the index of the parent dropdown menu among all dropdown menus
+        var menuIndex = allMenus.index(parentMenu);
+
+        // Find the index of the clicked dropdown item within its parent menu
+        var itemIndex = parentMenu.find('.dropdown-item').index(this);
+
+        // Concatenate the parent index and item index twice
+        var selectedIndex = menuIndex.toString() + itemIndex.toString() + itemIndex.toString();
+
+        // Close all previous menus
+        //$('.dropdown-menu').hide();
+
+        // Open only the menu with the same index as the selected item index
+        $('.dropdown-menu:eq(' + menuIndex + ')').show();
+
+        // Toggle the visibility of the dropdown menu associated with the clicked toggle
+        dropdownMenu.toggle();
+        e.stopPropagation();
+    });
+
+//// Event handler for submenu toggle click
+//    $('.dropdown-submenu').on("click", ".dropdown-toggle", function(e) {
+//        var dropdownMenu = $(this).next('.dropdown-menu');
+//
+//        $(this).closest('.dropdown-submenu').siblings('.dropdown-submenu').find('.dropdown-menu').hide();
+//
+//
+//        dropdownMenu.toggle();
+//        e.stopPropagation();
+//    });
+//
+//    $(document).on("click", function(e) {
+//        if (!$(e.target).closest('.dropdown-submenu').length) {
+//
+//        }
+//    });
+    //var prevMenuIndex = -1; // Initialize previous menu index
+    //var prevItemIndex = -1; // Initialize previous item index
+    //
+    //$('.dropdown-item').on('click', function() {
+    //    // Get the parent dropdown menu
+    //    var parentMenu = $(this).closest('.dropdown-menu');
+    //
+    //    // Get all dropdown menus
+    //    var allMenus = $('.dropdown-menu');
+    //
+    //    // Find the index of the parent dropdown menu among all dropdown menus
+    //    var menuIndex = allMenus.index(parentMenu);
+    //
+    //    // Find the index of the clicked dropdown item within its parent menu
+    //    var itemIndex = parentMenu.find('.dropdown-item').index(this);
+    //
+    //    // Check if the selected item text exists
+    //    var selectedItemText = $(this).text().trim();
+    //
+    //    if (selectedItemText) {
+    //        // Concatenate the indices
+    //        var selectedIndex = menuIndex.toString() + itemIndex.toString()
+    //
+    //        // Log the result to the console or use it as needed
+    //        console.log("Selected Index:", selectedIndex);
+    //
+    //        // Use the selected index and menu index in your logic
+    //        handleSelectedIndex(menuIndex, itemIndex, selectedIndex, prevMenuIndex, prevItemIndex);
+    //
+    //        // Update previous menu and item indices
+    //        prevMenuIndex = menuIndex;
+    //        prevItemIndex = itemIndex;
+    //    }
+    //});
+    //
+    //function handleSelectedIndex(menuIndex, itemIndex, selectedIndex, prevMenuIndex, prevItemIndex) {
+    //    // Perform actions based on the menu index and selected index
+    //    console.log("Menu Index:", menuIndex);
+    //    console.log("Item Index:", itemIndex);
+    //    console.log("Selected Index:", selectedIndex);
+    //
+    //    // Check if the menu index is 0 and the previous menu index is equal to the current menu index
+    //    if (menuIndex === 0 && prevMenuIndex === menuIndex && prevItemIndex !== itemIndex) {
+    //        console.log("User clicked on a different item within the same menu.");
+    //        // Close the previously selected item's menu
+    //        $('.dropdown-menu:eq(' + prevMenuIndex + ')').hide();
+    //    } else {
+    //        console.log("User clicked on an item in a different menu or menu index is not 0.");
+    //        // Close all dropdown menus
+    //        //$('.dropdown-menu').hide();
+    //
+    //        // Open only the menu with the same index as the selected item index
+    //        $('.dropdown-menu:eq(' + menuIndex + ')').show();
+    //    }
+    //}
+
+
+
+
+
+    $('.boostrapSub').on('click', '.dropdown-item', function(e) {
+        // Get the closest boostrapSub
+        var closestBoostrapSub = $(this).closest('.boostrapSub');
+        // Remove the selected class from all dropdown items in the current boostrapSub
+        closestBoostrapSub.find('.dropdown-item').removeClass('selected-item');
+        $(this).addClass('selected-item');
+    });
+
+
+
+
+    $('.boostrapSub').on('hide.bs.dropdown', function() {
+        // Get the closest boostrapSub
+        var closestBoostrapSub = $(this);
+        var selectedItemText = closestBoostrapSub.find('.dropdown-item.selected-item').text();
+        closestBoostrapSub.find('.dropdown-menuids').text(selectedItemText);
+
+    });
+
+
+    $('[data-submenu]').submenupicker();
+
+
+};
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', exec);
+} else {
+    exec();
+}
