@@ -1,0 +1,56 @@
+ var dropdownData = [
+    {
+        text: "Action",
+        subItems: [
+            { text: "Sub action" },
+            { text: "Another sub action", subItems: [
+                { text: "Sub action1" },
+                { text: "Another sub action2" },
+                { text: "Something else here3" }
+            ]},
+            { text: "Something else here" },
+            { text: "Disabled action", disabled: true },
+            { text: "Another action", subItems: [
+                { text: "Sub action21" },
+                { text: "Another sub action22" },
+                { text: "Something else here23" }
+            ]}
+        ]
+    },
+    {
+        text: "Another action",
+        subItems: [
+            { text: "Sub action" },
+            { text: "Another sub action" },
+            { text: "Something else here" }
+        ]
+    },
+    { text: "Something else here" },
+    { text: "Separated link" }
+];
+<button class="dropdown-toggle" type="button" data-toggle="dropdown">
+    Dropdown
+</button>
+<div class="dropdown-menu">
+    <c:forEach var="menuItem" items="${dropdownData}" varStatus="loop">
+        <c:choose>
+            <c:when test="${not empty menuItem.subItems}">
+                <!-- Submenu -->
+                <div class="dropdown-submenu">
+                    <button class="dropdown-item dropdown-toggle" type="button" data-toggle="dropdown" id="dropdown_${loop.index}_${menuItem.text.replaceAll(' ', '_')}">${menuItem.text}</button>
+                    <div class="dropdown-menu">
+                        <!-- Recursive call to generate sub-items -->
+                        <jsp:include page="submenu.jsp">
+                            <jsp:param name="subItems" value="${menuItem.subItems}" />
+                        </jsp:include>
+                    </div>
+                </div>
+            </c:when>
+            <c:otherwise>
+                <!-- Regular menu item without sub-items -->
+                <button class="dropdown-item" type="button" id="dropdown_${loop.index}_${menuItem.text.replaceAll(' ', '_')}">${menuItem.text}</button>
+            </c:otherwise>
+        </c:choose>
+    </c:forEach>
+</div>
+
