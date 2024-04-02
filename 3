@@ -1,0 +1,30 @@
+var dropdownSubmneu = function() {
+    var pre = "";
+
+    function handleScroll() {
+        document.querySelector('.js-scroll-top').hidden = window.pageYOffset < 100;
+    }
+
+    window.onscroll = handleScroll;
+    handleScroll();
+
+    $('.boostrap-menuDiv').on('click', '.dropdown-item', function (e) {
+        var closestBoostrapSub = $(this).closest('.boostrap-menuDiv');
+        closestBoostrapSub.find('.dropdown-item').removeClass('selected-item');
+        //closestBoostrapSub.find('.dropdown-divmenu').removeClass('selected-item');
+        $(this).addClass('selected-item');
+    });
+
+    $('.boostrap-menuDiv').on('hide.bs.dropdown', function () {
+        var closestBoostrapSub = $(this);
+        var selectedItemText = closestBoostrapSub.find('.dropdown-item.selected-item').text();
+        closestBoostrapSub.find('.dropdown-boostrapmenu').text(selectedItemText);
+    });
+    $('[data-submenu]').submenupicker();
+};
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', dropdownSubmneu);
+} else {
+    dropdownSubmneu();
+}
