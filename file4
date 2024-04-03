@@ -1,0 +1,23 @@
+$(document).on('click', function () {
+    var menuIdsDropdown = $('.dropdown-menu.menuids');
+    if (menuIdsDropdown.is(':visible')) {
+        var selectedItemId = $('.dropdown-item.selected-item').length > 0 ? $('.dropdown-item.selected-item')[0].id : null;
+        if (selectedItemId === null || selectedItemId === undefined) {
+            menuIdsDropdown.hide();
+        }
+    }
+});
+$(document).ready(function () {
+    $('.dropdown-item.selected-item').each(function () {
+        var menuId = $(this).attr('menuid');
+        var currentMenuId = $(this).closest('.dropdown-menu').attr('id');
+        
+        if (menuId === currentMenuId) {
+            $(this).show(); // Display the element
+        } else {
+            $(this).hide(); // Hide the element
+        }
+    });
+});
+
+var currentMenuId = $(this).closest('.dropdown-menu.menuids').attr('id');
