@@ -1,0 +1,36 @@
+$(document).ready(function () {
+    $('.dropdown-item.selected-item').each(function () {
+        var menuId = $(this).attr('menuid');
+        var $dropdownMenu = $(this).closest('.dropdown-menu.menuids');
+        
+        $dropdownMenu.on('show.bs.dropdown', function () {
+            var currentMenuId = $dropdownMenu.attr('id');
+            if (menuId === currentMenuId) {
+                $(this).show(); // Display the element
+            } else {
+                $(this).hide(); // Hide the element
+            }
+        });
+    });
+
+    $(document).on('click', function () {
+        var selectedItemId = $('.dropdown-item.selected-item').length > 0 ? $('.dropdown-item.selected-item')[0].id : null;
+        if (selectedItemId === null) {
+            $('.dropdown-menu.menuids').hide();
+        }
+    });
+});
+
+$(document).ready(function () {
+    $('.dropdown-item.selected-item').each(function () {
+        var menuId = $(this).attr('menuid');
+        var currentMenuId = $(this).closest('.dropdown-menu.menuids').attr('id');
+        
+        if (menuId === currentMenuId) {
+            $(this).show(); // Display the element
+        } else {
+            $(this).hide(); // Hide the element
+        }
+    });
+    // Your additional methods here
+});
