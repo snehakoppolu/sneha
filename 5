@@ -1,0 +1,7 @@
+ var visibleMenuIds = $('.dropdown-menu').filter(function() {
+            return $(this).css('display') === 'block';
+        }).map(function() {
+            return this.id;
+        }).get();
+        var firstMenuId = visibleMenuIds[1];
+        alert("jjjMenuIds"+firstMenuId)
