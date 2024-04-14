@@ -1,0 +1,24 @@
+      var visibleMenuIds = $( ' .dropdown-menu').filter(function() {
+            var drop = $(this).css('display') === 'block';
+            if (drop) {
+                var selectedItemId = $('.dropdown-item.selected-item').length > 0 ? $('.dropdown-item.selected-item')[0].id : null;
+                if (!selectedItemId) {
+                    //document.getElementById("menu_0_1_2").style.display="none";
+                    //$(this).hide(); // Hide the current dropdown menu
+              
+                    document.getElementById("menu_0_1_0").style.display = "none";
+                    document.getElementById("menu_0_1_2").style.display = "none";
+                }
+            }
+        });
+
+$('#' + dropdownId + ' .dropdown-menu').each(function() {
+        var drop = $(this).css('display') === 'block';
+
+        if (drop.length > 0) {
+            var selectedItemId = $('.dropdown-item.selected-item').length > 0 ? $('.dropdown-item.selected-item')[0].id : null;
+            if (!selectedItemId) {
+                $('.dropdown-item.selected-item').hide();
+            }
+        }
+    });
