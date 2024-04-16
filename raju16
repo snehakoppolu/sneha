@@ -1,0 +1,17 @@
+ var visibleMenuIds = $(' .dropdown-menu').filter(function() {
+                return $(this).css('display') === 'block' ;
+            }).map(function() {
+                return this.id;
+            }).get();
+            alert(visibleMenuIds)
+
+            $(' .dropdown-menu').each(function() {
+                var menuIdsDropdown = $(this);
+                if (menuIdsDropdown.css('display') === 'block') {
+                    var selectedItemId = $('.dropdown-item.selected-item', menuIdsDropdown).length > 0 ? $('.dropdown-item.selected-item', menuIdsDropdown)[0].id : null;
+                    if (!selectedItemId) {
+                        alert("lol")
+                        document.getElementById(visibleMenuIds[1]).style.display = "none";
+                    }
+                }
+            });
