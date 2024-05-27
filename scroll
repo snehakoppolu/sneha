@@ -1,0 +1,58 @@
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: white;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    max-height: 200px; /* Adjust the height as needed */
+    overflow-y: auto;
+}
+
+.dropdown-item {
+    position: relative;
+}
+
+.dropdown-submenu:hover > .dropdown-menu {
+    display: block;
+}
+
+.dropdown-submenu .dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-top: -1px;
+}
+
+.dropdown-item > a {
+    display: block;
+    padding: 8px 16px;
+    text-decoration: none;
+    color: #333;
+}
+
+.dropdown-item > a:hover {
+    background-color: #f1f1f1;
+}
+$(document).ready(function(){
+    // Show the submenu on hover
+    $('.dropdown-submenu').hover(function() {
+        $(this).children('.dropdown-menu').stop(true, true).fadeIn(200);
+    }, function() {
+        $(this).children('.dropdown-menu').stop(true, true).fadeOut(200);
+    });
+
+    // Close submenus when clicking outside
+    $(document).on("click", function(e) {
+        if (!$(e.target).closest('.dropdown-menu').length) {
+            $('.dropdown-menu').fadeOut(200);
+        }
+    });
+
+    // Prevent hiding when clicking inside a submenu
+    $('.dropdown-menu').on("click", function(e) {
+        e.stopPropagation();
+    });
+});
+
