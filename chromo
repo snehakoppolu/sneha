@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Foreground Color</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chroma-js/2.1.0/chroma.min.js"></script>
+    <style>
+        #content {
+            width: 300px;
+            height: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+<div id="content">Sample Text</div>
+<input type="color" id="backgroundColorPicker" value="#ffffff">
+<script>
+    const contentDiv = document.getElementById('content');
+    const backgroundColorPicker = document.getElementById('backgroundColorPicker');
+
+    function updateColors() {
+        const bgColor = backgroundColorPicker.value;
+        contentDiv.style.backgroundColor = bgColor;
+
+        const fgColor = chroma(bgColor).set('hsl.h', '+180').hex();
+        contentDiv.style.color = fgColor;
+    }
+
+    backgroundColorPicker.addEventListener('input', updateColors);
+    updateColors();
+</script>
+</body>
+</html>
