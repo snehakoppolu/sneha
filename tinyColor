@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Foreground Color</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinycolor/1.4.2/tinycolor.min.js"></script>
+    <style>
+        #content {
+            width: 300px;
+            height: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+    <div id="content">Sample Text</div>
+    <input type="color" id="backgroundColorPicker" value="#ffffff">
+    <script>
+        const contentDiv = document.getElementById('content');
+        const backgroundColorPicker = document.getElementById('backgroundColorPicker');
+
+        function updateColors() {
+            const bgColor = tinycolor(backgroundColorPicker.value);
+            contentDiv.style.backgroundColor = bgColor.toHexString();
+
+            let fgColor;
+
+            if (bgColor.isLight()) {
+                // For light backgrounds, choose a complementary darkened color
+                fgColor = bgColor.complement().darken(30).toHexString();
+            } else {
+                // For dark backgrounds, choose a complementary brightened color
+                fgColor = bgColor.complement().brighten(30).toHexString();
+            }
+
+            contentDiv.style.color = fgColor;
+        }
+
+        backgroundColorPicker.addEventListener('input', updateColors);
+
+        // Initialize with the default color
+        updateColors();
+    </script>
+</body>
+</html>
