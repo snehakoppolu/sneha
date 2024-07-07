@@ -1,0 +1,16 @@
+
+        function scrollToSelectedTarget() {
+            if (selectedTarget) {
+                const targetElement = document.querySelector(selectedTarget);
+                if (targetElement) {
+                    const container = document.querySelector('#container');
+                    const targetOffset = targetElement.offsetTop - container.offsetTop;
+                    container.scrollTo({ top: targetOffset, behavior: 'smooth' });
+                }
+            }
+        }
+        
+        document.querySelectorAll('#container .dropdown-toggle').forEach(button => {
+            button.addEventListener('click', () => {
+            scrollToSelectedTarget();
+    });
