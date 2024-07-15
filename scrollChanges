@@ -1,0 +1,20 @@
+<script>
+  $(document).ready(function() {
+    $('#dropdownMenuButton').on('click', function() {
+      var selectedItem = $('.dropdown-item.active');
+      if (selectedItem.length) {
+        var dropdownMenu = $(this).next('.dropdown-menu');
+        var offsetTop = selectedItem.position().top + dropdownMenu.scrollTop() - dropdownMenu.height() / 2 + selectedItem.height() / 2;
+        dropdownMenu.animate({
+          scrollTop: offsetTop
+        }, 500);
+      }
+    });
+
+    $('.dropdown-item').on('click', function(e) {
+      e.preventDefault();
+      $('.dropdown-item').removeClass('active');
+      $(this).addClass('active');
+    });
+  });
+</script>
