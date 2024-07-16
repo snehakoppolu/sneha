@@ -1,0 +1,43 @@
+$(document).ready(function () {
+    $('.dropdown').each(function() {
+        var $dropdown = $(this);
+        var $visibleMenus = $dropdown.find('.dropdown-menu').filter(function() {
+            return $(this).css('display') === 'block' && $(this).find('.dropdown-item.selected-item').length === 0;
+        });
+
+        // Check if there are at least two visible menus
+        if ($visibleMenus.length > 1) {
+            var $mainDiv = $dropdown.closest('.main-div'); // Assuming .main-div is the main container class
+            var $secondVisibleMenu = $visibleMenus.eq(1); // Get the second visible menu
+
+            if ($mainDiv.length > 0) {
+                $mainDiv.animate({
+                    scrollTop: $mainDiv.scrollTop() + $secondVisibleMenu.position().top
+                }, 'smooth');
+            }
+        }
+    });
+});
+
+$(document).ready(function () {
+    // Ensure event handlers are attached after dropdowns are loaded
+    $('#dropdownContainer').on('click', '.dropdown', function() {
+        var $dropdown = $(this);
+        var $visibleMenus = $dropdown.find('.dropdown-menu').filter(function() {
+            return $(this).css('display') === 'block' && $(this).find('.dropdown-item.selected-item').length === 0;
+        });
+
+        // Check if there are at least two visible menus
+        if ($visibleMenus.length > 1) {
+            var $mainDiv = $('#mainDiv'); // Assuming #mainDiv is the main container ID
+            var $secondVisibleMenu = $visibleMenus.eq(1); // Get the second visible menu
+
+            if ($mainDiv.length > 0) {
+                $mainDiv.animate({
+                    scrollTop: $mainDiv.scrollTop() + $secondVisibleMenu.position().top - $mainDiv.position().top
+                }, 'smooth');
+            }
+        }
+    });
+});
+
