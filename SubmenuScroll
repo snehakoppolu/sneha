@@ -1,0 +1,30 @@
+$(document).ready(function() {
+    // Load dropdown content
+    $('#dropdownContainer').load('dropdowns.html', function() {
+        console.log('Dropdown content loaded');
+        // Attach click event handler after content is loaded
+        $('#dropdownContainer').on('click', '.dropdown-toggle', function() {
+            console.log('Dropdown toggled');
+
+            var $dropdown = $(this).closest('.dropdown');
+            var $visibleMenus = $dropdown.find('.dropdown-menu').filter(function() {
+                return $(this).css('display') === 'block' && $(this).find('.dropdown-item.selected-item').length === 0;
+            });
+
+            console.log('Visible menus:', $visibleMenus.length);
+
+            // Check if there are at least two visible menus
+            if ($visibleMenus.length > 1) {
+                var $mainDiv = $('#mainDiv'); // Assuming #mainDiv is the main container ID
+                var $secondVisibleMenu = $visibleMenus.eq(1); // Get the second visible menu
+
+                if ($mainDiv.length > 0) {
+                    console.log('Scrolling to second visible menu');
+                    $mainDiv.animate({
+                        scrollTop: $mainDiv.scrollTop() + $secondVisibleMenu.position().top - $mainDiv.position().top
+                    }, 'smooth');
+                }
+            }
+        });
+    });
+});
