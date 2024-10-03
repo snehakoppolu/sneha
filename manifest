@@ -1,0 +1,118 @@
+manifest_version: Specifies the version of the Chrome Extensions manifest file format. Chrome currently supports version 3.
+name: The name of the extension as displayed to users.
+version: The version number of the extension.
+description: A brief description of the extension.
+action: Defines the behavior of the extension's toolbar action (e.g., popup, icon).
+default_popup: Specifies the HTML file shown when the extension’s icon is clicked.
+default_icon: Defines the icons of different sizes for the extension toolbar.
+permissions: A list of permissions the extension requires, such as access to tabs, storage, or other Chrome API features.
+background: For background scripts, used to define the service_worker (replaces background.js in Manifest V2).
+Managing tabs, alarms, notifications ,	Access to various Chrome APIs,Handle background tasks and events
+icons: Specifies the icons to represent the extension in different places, like the Chrome Web Store and the toolbar.
+document.body.style.backgroundColor = 'lightblue'; 
+
+	Changing page styles, extracting data DOM manipulation, limited API access,Modify and interact with web page content
+Wildcards (*): You can use * in place of subdomains or paths. However, wildcards do not work in the protocol section, so you must specify http, https, or both.
+Permissions: If your extension interacts with web pages, you may also need to declare permissions in the manifest file like "permissions": ["tabs", "activeTab"].
+
+
+// background.js
+
+// Function to open a new tab and set a reminder to close it
+function openTabAndSetReminder() {
+    const url = 'https://www.example.com'; // URL to open in the new tab
+    chrome.tabs.create({ url }, (tab) => { // Open the new tab
+        console.log(`Opened tab with ID: ${tab.id}`); // Log the new tab's ID
+        chrome.alarms.create(`closeTab${tab.id}`, { delayInMinutes: 2 }); // Set an alarm to close the tab after 2 minutes
+    });
+}
+
+// Listener for the action button click
+chrome.action.onClicked.addListener(() => {
+    openTabAndSetReminder(); // Call the function to open a tab and set a reminder
+});
+
+// Listener for when an alarm goes off
+chrome.alarms.onAlarm.addListener((alarm) => {
+    const tabId = parseInt(alarm.name.replace('closeTab', '')); // Extract tab ID from alarm name
+    chrome.tabs.remove(tabId, () => { // Close the tab using the stored ID
+        console.log(`Closed tab with ID: ${tabId}`); // Log closure confirmation
+    });
+});
+
+// Example: Function to save a user-defined URL (optional)
+function saveUserDefinedUrl(url) {
+    chrome.storage.sync.set({ userUrl: url }, () => {
+        console.log(`User-defined URL saved: ${url}`); // Log confirmation
+    });
+}
+
+// Call this function to save a default URL for testing
+saveUserDefinedUrl('https://www.example.com'); // Save a default URL
+
+
+
+
+
+
+
+// background.js
+
+// Function to create an alarm with a user-defined delay
+function createUserDefinedAlarm() {
+    // Retrieve the alarm time from storage
+    chrome.storage.sync.get('alarmTime', (data) => {
+        const delayInMinutes = data.alarmTime || 1; // Default to 1 minute if not set
+        chrome.alarms.create('userAlarm', { delayInMinutes }); // Create an alarm
+        console.log(`Alarm set for ${delayInMinutes} minute(s) from now.`); // Log confirmation
+    });
+}
+
+// Create an action button listener to set the alarm
+chrome.action.onClicked.addListener(() => {
+    createUserDefinedAlarm(); // Call the function to create the alarm
+});
+
+// Listener for when an alarm goes off
+chrome.alarms.onAlarm.addListener((alarm) => {
+    console.log(`Alarm ${alarm.name} triggered!`); // Log the triggered alarm name
+    chrome.notifications.create({ // Create a notification for the triggered alarm
+        type: 'basic',
+        iconUrl: 'icon.png', // Path to the notification icon
+        title: 'Alarm Triggered',
+        message: `Alarm ${alarm.name} has gone off!` // Message displayed in the notification
+    });
+});
+
+// Example: Function to save user-defined alarm time (this could be triggered by a popup or options page)
+function saveAlarmTime(timeInMinutes) {
+    chrome.storage.sync.set({ alarmTime: timeInMinutes }, () => {
+        console.log(`Alarm time set to ${timeInMinutes} minute(s).`); // Log confirmation
+    });
+}
+
+// Call this function to save a default time for testing
+saveAlarmTime(2); // Set default alarm time to 2 minutes
+
+
+
+
+
+name: The app's name (mandatory).
+version: Current version of the app (mandatory).
+description: A short description of the app (mandatory).
+manifest_version: The version of the manifest format (mandatory).
+permissions: Permissions the app needs (optional).
+icons: Specifies app icons in different sizes (optional).
+background: Scripts that run in the background (optional).
+content_scripts: Scripts injected into web pages (optional).
+browser_action: Settings for the browser toolbar button (optional).
+options_page: URL of the page for app options (optional).
+
+
+matches: Specifies the URLs where the script should be injected (mandatory).
+js: List of JavaScript files to inject (mandatory).
+css: List of CSS files to inject (optional).
+run_at: Defines when the script is injected (optional, defaults to document_idle).
+all_frames: Determines if the script should be injected into all frames (optional).
+exclude_matches: Excludes specific URLs from injection (optional).
