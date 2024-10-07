@@ -1,0 +1,127 @@
+chrome.action --previously chrome.browserAction
+-------------------------------------------------
+chrome.action.setIcon({ path: 'icon.png' }); //Set the action button icon
+
+
+chrome.action.setTitle({ title: 'My Extension' });// Set the action button tooltip
+
+
+chrome.action.setBadgeText({ text: 'NEW' });// Set text in the badge of the action button
+
+
+chrome.action.setPopup({ popup: 'popup.html' });// Set the popup for the action button
+
+chrome.action.onClicked.addListener(function(tab) {
+    console.log('Action button clicked, tab:', tab);
+});// Listen for clicks on the action button
+
+
+
+chrome.tabs.create({ url: 'https://www.example.com' }); // Create a new tab
+
+
+chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+    console.log(tabs);
+});// Query for active tabs
+
+
+chrome.tabs.update(tabId, { url: 'https://www.new-url.com' });// Update a tab's URL
+
+
+chrome.tabs.remove(tabId);// Remove a tab
+
+chrome.tabs.sendMessage(tabId, { greeting: "Hello" }, function(response) {
+    console.log(response);
+});
+// Send a message to a content script in a tab
+
+
+chrome.tabs.executeScript(tabId, { file: 'contentScript.js' });// Inject a script into a tab
+
+
+chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
+    if (changeInfo.status == 'complete') {
+        console.log('Tab updated:', tabId);
+    }
+});// Listen for tab updates
+
+
+
+
+
+chrome.notifications.create('notificationId', {
+    type: 'basic',
+    iconUrl: 'icon.png',
+    title: 'Notification Title',
+    message: 'This is a notification message.'
+});// Create a notification
+
+
+chrome.notifications.clear('notificationId');// Clear a notification
+
+
+chrome.notifications.update('notificationId', {
+    title: 'Updated Title',
+    message: 'This is an updated message.'
+});// Update a notification
+
+
+chrome.notifications.getAll(function(notifications) {
+    console.log(notifications);
+});// Get all active notifications
+
+
+chrome.notifications.onClicked.addListener(function(notificationId) {
+    console.log('Notification clicked:', notificationId);
+});// Listen for a notification click
+
+
+chrome.notifications.onClosed.addListener(function(notificationId, byUser) {
+    console.log('Notification closed:', notificationId);
+});// Listen for when a notification is closed
+
+// Listen for extension installation or updates
+chrome.runtime.onInstalled.addListener(function(details) {
+    console.log('Extension installed or updated:', details);
+});
+
+// Get the URL of a resource in the extension
+let resourceUrl = chrome.runtime.getURL('options.html');
+console.log('Resource URL:', resourceUrl);
+
+// Send a message from the background script to a content script or another part of the extension
+chrome.runtime.sendMessage({ message: 'Hello from the background' }, function(response) {
+    console.log('Response:', response);
+});
+
+// Listen for messages sent to the extension
+chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
+    console.log('Message received:', message);
+    sendResponse({ response: 'Response from background' });
+});
+
+// Open the options page
+chrome.runtime.openOptionsPage();
+
+// Reload the extension
+chrome.runtime.reload();
+
+
+
+// Wait until the DOM is loaded before attaching the event listener
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('notify-btn').addEventListener('click', createNotification);
+});
+
+// Function to create the notification
+function createNotification() {
+    chrome.notifications.create('my-notification', {
+        type: 'basic',                   // Type of notification
+        iconUrl: 'icon.png',              // Icon for the notification
+        title: 'Hello from your Extension!',
+        message: 'This is a sample notification triggered by button click.',
+        priority: 2                       // Priority of the notification (optional)
+    }, function(notificationId) {
+        console.log('Notification created with ID:', notificationId);
+    });
+}
