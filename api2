@@ -1,0 +1,42 @@
+
+chrome.alarms.create('myAlarm', { delayInMinutes: 5 });
+
+
+chrome.alarms.clear('myAlarm');
+
+
+chrome.alarms.clearAll();
+
+
+chrome.alarms.get('myAlarm', function(alarm) {
+    console.log('Alarm details:', alarm);
+});
+
+
+chrome.alarms.onAlarm.addListener(function(alarm) {
+    console.log('Alarm triggered:', alarm.name);
+});
+
+
+document.getElementById('save').addEventListener('click', function() {
+    let userValue = document.getElementById('userInput').value;
+    chrome.storage.local.set({ userKey: userValue }, function() {
+        console.log('Value is set to ' + userValue);
+    });
+});
+
+
+document.getElementById('get').addEventListener('click', function() {
+    chrome.storage.local.get(['userKey'], function(result) {
+        console.log('Value currently is ' + result.userKey);
+    });
+});
+
+
+chrome.storage.onChanged.addListener(function(changes, area) {
+    for (let key in changes) {
+        let change = changes[key];
+        console.log(`Storage key "${key}" in "${area}" changed. 
+                     Old value: ${change.oldValue}, New value: ${change.newValue}`);
+    }
+});
