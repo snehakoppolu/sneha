@@ -1,0 +1,55 @@
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+    if (request.action === "start_alarm") {
+        createAlarm(request.interval);
+    } else if (request.action === "stop_alarm") {
+        chrome.alarms.clear("drink_water");
+    }
+});
+
+chrome.alarms.onAlarm.addListener(() => {
+    // Create a notification when the alarm triggers
+    chrome.notifications.create({
+        type: "basic",
+        iconUrl: "alarm.jpg",
+        title: "centra hub",
+        message: "Have a sip of water human!",
+        silent: false
+    });
+
+    // Open a tab to remind the user
+    chrome.tabs.create({ url: "https://www.google.com/search?q=centra+hub" });
+});
+
+chrome.runtime.onInstalled.addListener(() => {
+    // Set a default interval when the extension is installed
+    chrome.storage.sync.set({ interval: 1 });
+});
+
+function createAlarm(interval) {
+    chrome.alarms.create("drink_water", {
+        delayInMinutes: interval,
+        periodInMinutes: interval
+    });
+}
+
+document.getElementById("start").addEventListener("click", function() {
+    const interval = parseFloat(document.getElementById("interval").value);
+    
+    chrome.storage.sync.set({ "interval": interval }, () => {
+        chrome.runtime.sendMessage({ action: "start_alarm", interval: interval });
+    });
+});
+
+document.getElementById("stop").addEventListener("click", function() {
+    chrome.runtime.sendMessage({ action: "stop_alarm" });
+});
+
+ <h2>Stay Hydrated!</h2>
+    <label for="interval">Interval (min):</label>
+    <input type="number" id="interval" value="1" min="1" max="60">
+    <br><br>
+    <button id="start">Start Alarm</button>
+    <button id="stop">Stop Alarm</button>
+
+    <script src="popup.js"></script>
+
