@@ -1,0 +1,69 @@
+
+function onClickHandler(info, tab) {
+  if (info.menuItemId === "sampleItem") {
+    console.log("Context menu clicked");
+    chrome.tabs.create({ url: 'https://www.example.com' });
+  }
+}
+
+chrome.runtime.onInstalled.addListener(() => {
+  chrome.contextMenus.create({
+    id: "sampleItem",
+    title: "Click me!",
+    contexts: ["page"]
+  });
+});
+
+
+chrome.contextMenus.onClicked.addListener(onClickHandler);
+
+
+// URLs to open in new tabs
+const urls = [
+  'https://www.example.com', 
+  'https://www.google.com', 
+  'https://www.github.com'
+];
+
+let tabIds = []; // Store the created tab IDs
+let groupId = null; // Store the group ID
+
+// Function to create tabs and group them
+function createTabsAndGroup() {
+  urls.forEach((url, index) => {
+    chrome.tabs.create({ url }, (tab) => {
+      tabIds.push(tab.id); // Add each tab's ID to the array
+
+     
+      if (tabIds.length === urls.length) {
+        chrome.tabs.group({ tabIds }, (id) => {
+          groupId = id; // Save the group ID
+          chrome.tabGroups.update(groupId, { title: "My Group", color: "blue" });
+          console.log('Tabs grouped:', groupId);
+        });
+      }
+    });
+  });
+}
+
+function closeTabGroup() {
+  if (groupId !== null) {
+   
+    chrome.tabs.query({ groupId }, (tabs) => {
+      const tabIdsToRemove = tabs.map(tab => tab.id); 
+      chrome.tabs.remove(tabIdsToRemove, () => {
+        console.log('Closed all tabs in group:', groupId);
+        groupId = null; 
+      });
+    });
+  } else {
+    console.log('No group to close.');
+  }
+}
+
+
+chrome.runtime.onInstalled.addListener(() => {
+  createTabsAndGroup();
+});
+
+// setTimeout(() => closeTabGroup(), 10000); 
