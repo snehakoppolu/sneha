@@ -1,0 +1,50 @@
+1. Action API
+The Action API lets you control the action button in the browser toolbar (introduced in Manifest V3, replaced the previous browser_action in V2).
+
+Key Methods:
+action.setPopup({ popup }): Sets the HTML file that is used as a popup when the action button is clicked.
+action.setTitle({ title }): Sets the title for the action button (tooltip).
+action.setIcon({ path }): Sets the icon for the action button.
+action.onClicked.addListener(callback): Adds a listener that triggers when the action button is clicked.
+Example:
+javascript
+Copy code
+chrome.action.onClicked.addListener((
+Here’s a task list with key points you might need when working on a Chrome Extension using the action, tabs, storage, and notifications APIs:
+
+1. Set Up Extension
+ Define a manifest.json file (ensure it's set up with correct permissions and Manifest V3).
+ Include "action", "tabs", "storage", and "notifications" in the permissions section if needed.
+2. Action API
+ Create the action button.
+Set up icon (action.setIcon()).
+Set popup page if needed (action.setPopup()).
+Add an event listener for button clicks (action.onClicked.addListener()).
+3. Tabs API
+ Handle tabs to interact with open browser tabs.
+Use chrome.tabs.create({url}) to open a new tab.
+Get information about the current tab using chrome.tabs.query({ active: true, currentWindow: true }).
+Add listeners for tab events (chrome.tabs.onUpdated, chrome.tabs.onCreated).
+Use chrome.tabs.sendMessage(tabId, message) to communicate with content scripts.
+4. Storage API
+ Manage storage for persistent data.
+Use chrome.storage.sync or chrome.storage.local for saving user settings or data.
+Store key-value pairs (chrome.storage.set({ key: value })).
+Retrieve stored data (chrome.storage.get([key], callback)).
+Set up listeners for changes in storage (chrome.storage.onChanged).
+5. Notifications API
+ Set up notifications.
+Use chrome.notifications.create(notificationId, options) to display a notification.
+Customize notification with title, icon, message, and buttons.
+Add listeners for notification events (chrome.notifications.onClicked or onButtonClicked).
+6. Event Listeners
+ Set up background event listeners to handle user interactions or tab changes.
+For tabs, set listeners for opening, closing, or updating tabs.
+Handle action button clicks or other UI-related events.
+7. Content Script (optional)
+ Create a content script to interact with web pages (read or modify DOM).
+Communicate between content script and background script using chrome.runtime.sendMessage() or chrome.tabs.sendMessage().
+8. Testing & Debugging
+ Load your extension in Chrome using the Developer Mode.
+ Test all APIs to ensure buttons, tabs, and notifications behave as expected.
+ Use Chrome’s Developer Tools for debugging (check logs in the background page and content scripts).
