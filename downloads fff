@@ -1,0 +1,57 @@
+{
+  "manifest_version": 3,
+  "name": "Download Example",
+  "version": "1.0",
+  "description": "A simple example using the downloads API",
+  "permissions": [
+    "downloads"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html"
+  }
+}
+
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  if (request.action === 'download') {
+    chrome.downloads.download({
+      url: request.url, 
+      filename: request.filename, 
+      conflictAction: 'overwrite
+    }, (downloadId) => {
+      if (downloadId) {
+        console.log('Download started with ID:', downloadId);
+      } else {
+        console.error('Download failed');
+      }
+    });
+  }
+});
+
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Download Example</title>
+    <style>
+      body { width: 200px; padding: 10px; }
+    </style>
+  </head>
+  <body>
+    <h3>Download Example</h3>
+    <button id="downloadBtn">Download File</button>
+
+    <script src="popup.js"></script>
+  </body>
+</html>
+
+
+document.getElementById('downloadBtn').addEventListener('click', () => {
+  chrome.runtime.sendMessage({
+    action: 'download',
+    url: 'https://example.com/file.zip',
+    filename: 'downloaded_file.zip'
+  });
+});
