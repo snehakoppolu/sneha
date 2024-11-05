@@ -1,0 +1,40 @@
+
+const LOCATION_ENDPOINT =
+    "https://ttp.cbp.dhs.gov/schedulerapi/locations/?temporary=false&inviteOnly=false&operational=true&serviceName=Global Entry";
+
+chrome.runtime.onInstalled.addListener((details) =>{
+    console.log(details.reason);
+fetchLocations();
+
+
+});
+
+
+chrome.storage.local.get('locations', function(obj) {
+    console.log("hhhh"+JSON.stringify(obj.name))
+    setLocations(obj)
+});
+
+
+
+
+function fetchLocations (){
+    fetch(LOCATION_ENDPOINT)
+        .then((response) => response.json())
+.then((data) => {
+
+        const filteredLocations = data.map((loc) => ({
+            id: loc.id,
+            name: loc.name,
+            shortName: loc.shortName,
+            tzData: loc.tzData,
+        }));
+        filteredLocations.sort((a, b) => a.name.localeCompare(b.name));
+        chrome.storage.local.set({ locations: filteredLocations });
+        //console.log("data..."+JSON.stringify(data))
+})
+.catch((error) => {
+    console.log(error);
+});
+};
+
