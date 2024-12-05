@@ -1,0 +1,73 @@
+<template>
+  <div class="checkbox-container" :style="gridStyle">
+    <div 
+      class="checkbox-wrapper" 
+      v-for="checkbox in checkboxes" 
+      :key="checkbox.id">
+      <input type="checkbox" :id="checkbox.id" />
+      <label :for="checkbox.id">{{ checkbox.label }}</label>
+    </div>
+  </div>
+</template>
+
+<script>
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
+
+export default {
+  setup() {
+    const totalCheckboxes = 40; // Total number of checkboxes
+    const rowHeight = 40; // Height of each row in pixels
+
+    // Reactive values
+    const viewportHeight = ref(window.innerHeight);
+
+    // Calculate rows and columns dynamically
+    const rowsPerColumn = computed(() => Math.floor(viewportHeight.value / rowHeight));
+    const columns = computed(() => Math.ceil(totalCheckboxes / rowsPerColumn.value));
+
+    // Generate checkbox data
+    const checkboxes = Array.from({ length: totalCheckboxes }, (_, i) => ({
+      id: `checkbox${i + 1}`,
+      label: `Checkbox ${i + 1}`,
+    }));
+
+    // Dynamic grid styles
+    const gridStyle = computed(() => ({
+      gridTemplateRows: `repeat(${rowsPerColumn.value}, ${rowHeight}px)`,
+      gridTemplateColumns: `repeat(${columns.value}, 1fr)`,
+      gap: '10px',
+    }));
+
+    // Update viewport height on resize
+    const updateViewportHeight = () => (viewportHeight.value = window.innerHeight);
+
+    onMounted(() => {
+      window.addEventListener('resize', updateViewportHeight);
+    });
+
+    onBeforeUnmount(() => {
+      window.removeEventListener('resize', updateViewportHeight);
+    });
+
+    return {
+      checkboxes,
+      gridStyle,
+    };
+  },
+};
+</script>
+
+<style>
+.checkbox-container {
+  display: grid;
+  grid-auto-flow: column;
+  padding: 10px;
+}
+.checkbox-wrapper {
+  display: flex;
+  align-items: center;
+}
+.checkbox-wrapper label {
+  margin-left: 5px;
+}
+</style>
