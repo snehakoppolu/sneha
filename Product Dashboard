@@ -1,0 +1,159 @@
+<template>
+  <div class="container">
+    <h1> Product Dashboard</h1>
+
+    
+    <form @submit.prevent="addProduct" class="form">
+      <input v-model="newProduct.title" placeholder="Title" required />
+      <input v-model.number="newProduct.price" type="number" placeholder="Price" required />
+      <input v-model="newProduct.category" placeholder="Category" required />
+      <input v-model="newProduct.image" placeholder="Image URL" required />
+      <button type="submit">Add Product</button>
+    </form>
+
+    <input v-model="search" placeholder="Search by title..." class="search" />
+
+    
+    <p v-if="loading">Loading products...</p>
+    <p v-if="error" class="error">{{ error }}</p>
+
+   
+    <table v-if="!loading && !error">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Price</th>
+          <th>Category</th>
+          <th>Image</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="product in filteredProducts" :key="product.id">
+          <td>
+            <input v-if="editingId === product.id" v-model="editData.title" />
+            <span v-else>{{ product.title }}</span>
+          </td>
+          <td>
+            <input v-if="editingId === product.id" v-model.number="editData.price" />
+            <span v-else>{{ product.price }}</span>
+          </td>
+          <td>
+            <input v-if="editingId === product.id" v-model="editData.category" />
+            <span v-else>{{ product.category }}</span>
+          </td>
+          <td><img :src="product.image" alt="" width="50" /></td>
+          <td>
+            <button v-if="editingId === product.id" @click="saveEdit(product.id)">Save</button>
+            <button v-else @click="startEdit(product)"> Edit</button>
+            <button @click="deleteProduct(product.id)"> Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</template>
+
+<script setup>
+import { ref, computed, onMounted } from 'vue'
+import axios from 'axios'
+
+
+const products = ref([])
+const loading = ref(true)
+const error = ref('')
+const search = ref('')
+
+const newProduct = ref({
+  title: '',
+  price: null,
+  category: '',
+  image: '',
+})
+
+
+const editingId = ref(null)
+const editData = ref({})
+
+
+const fetchProducts = async () => {
+  try {
+    const res = await axios.get('https://fakestoreapi.com/products')
+    products.value = res.data
+  } catch (err) {
+    error.value = 'Failed to fetch products.'
+    console.error(err)
+  } finally {
+    loading.value = false
+  }
+}
+
+
+const addProduct = async () => {
+  try {
+    const res = await axios.post('https://fakestoreapi.com/products', newProduct.value)
+    products.value.push(res.data)
+    newProduct.value = { title: '', price: null, category: '', image: '' }
+  } catch (err) {
+    alert('Add failed')
+  }
+}
+
+
+const startEdit = (product) => {
+  editingId.value = product.id
+  editData.value = { ...product }
+}
+
+const saveEdit = async (id) => {
+  try {
+    await axios.put(`https://fakestoreapi.com/products/${id}`, editData.value)
+    const index = products.value.findIndex(p => p.id === id)
+    if (index !== -1) {
+      products.value[index] = { ...products.value[index], ...editData.value }
+    }
+    editingId.value = null
+  } catch (err) {
+    alert('Update failed')
+  }
+}
+
+// Delete a product
+const deleteProduct = async (id) => {
+  try {
+    await axios.delete(`https://fakestoreapi.com/products/${id}`)
+    products.value = products.value.filter(p => p.id !== id)
+  } catch (err) {
+    alert('Delete failed')
+  }
+}
+
+
+const filteredProducts = computed(() => {
+  return products.value.filter(p =>
+    p.title.toLowerCase().includes(search.value.toLowerCase())
+  )
+})
+
+
+onMounted(() => {
+  fetchProducts()
+})
+</script>
+
+<style scoped>
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+th, td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.error {
+  color: red;
+}
+</style>
