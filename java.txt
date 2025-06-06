@@ -1,0 +1,222 @@
+fun - we can pass a funt to an argument to a methods
+perm - all class def and static member and than metaDat are stored  
+avoid nullpiont exp, empty opt, isempty ,ispresent
+null dtly  
+avoid nullpoint opept ,ispresent,off  non null values
+optional null dtly
+
+methodf- new method imp using interface
+stream- we can use multiple element in a ptly on simultly and use that
+dependI-sc-ioc-spring checkobj in sc or not if pt inject dep bean in sc and after remove that class  
+git remote and local 
+Spring Cloud Config Server
+@EnableConfigServer
+your url git or git lab mention
+
+ log4j ,logback and slf4j 
+log statements reached to kin
+Kibana is a data visualization and exploration tool used for log and time-series analytics, application monitoring, 
+and operational intelligence use cases
+log.error ,log .info
+
+ logs move to an elatic search to Kibana 
+
+if you have large no of ms
+logs distribution 
+Zipkin is a distributed tracing system
+ Traces -changes based and commu to  ms 
+ spans - sameno
+
+
+Zipkin, a distributed tracing system, is primarily used to trace requests across multiple micro 
+ Zipkin is a powerful tool for developers working with microservices architectures, enabling them to understand, monitor, and troubleshoot their systems effectively
+cloud watch - api error clock
+
+cont ad-exp 
+
+gui -
+Elasticsearch, a search-based data solution
+kibana using time scale and fliter using log errors 
+
+git
+po- productowner 
+Dev- Developer
+product env -cus
+FEATURE MIND
+private branch-push to featuremind- dev -team dicus- Qa
+DOCKER -IMAGE -PICK dep for container reg- move kub of aws 
+
+ login when you want cach any data any sys
+meth-public
+insta-privte and static
+early or lazy  obj been inilization or not null check 
+not thread safe for that  key  method syn check null or not 
+==null put syn block
+double checking locking 
+
+enabel chace
+name of ch for method
+orm- hib -own enable def -session  factory end ch ends 
+         - def disenable  
+adviceco
+
+5 scope
+1. Singleton Scope (Default)-Only one instance of the bean is created per Spring container, and it’s reused for every request.
+2. Prototype Scope-A new instance is created each time the bean is requested.
+3. Request Scope- One instance of the bean is created per HTTP request.
+4. Session Scope-One instance of the bean is per HTTP session.
+5. Global Session Scope- One instance per global HTTP session, shared across multiple portlets.
+6.Custom Scope-While Spring provides several built-in scopes, you can define custom scopes to meet more specialized needs.
+1. Creating Custom Scope Class
+2. Register the Custom Scope in Spring Configuration
+3.Define a Bean Using the Custom Scope
+
+ sig-default 
+pro-new bean can create
+req,glob,
+session and http  
+end bean  scope ends
+static and def meme stored
+
+he Factory pattern deals with creating objects of a single type, while the Abstract Factory pattern deals with creating objects of related types
+
+sp-
+bean factory -xml support -lazy loading -depend in bean  
+applicat cont -xml and annot, early- no depend in bean 
+
+
+
+@Component is an annotation that allows Spring to detect our custom beans automatically
+The @Components is used to mark the Java class in the Spring applications. The Spring IoC container manages the component annotations and is
+ responsible for the lifecycle of the components, such as initializing, creating, or destroying them. 
+components are used in conjunction with @Autowired and @Qualifier to inject the dependencies of the elements.
+
+applied on a method to specify that it returns a bean to be managed by Spring context. 
+Spring Bean annotation is usually declared in Configuration classes methods. In this case,
+ bean methods may reference other @Bean methods in the same class by calling them directly
+
+@Bean is just for the metadata definition to create the bean(equivalent to tag).
+Bean annotation is a direct analog of the XML element, which indicates that the Spring container should register a method. 
+
+ @Autowired is to inject the dependancy into a bean(equivalent to ref XML tag/attribute)
+service fail- mtp inst create using cloud  take one of that
+abstration
+
+congif,
+
+waterfall-once proj start their no choice new dev
+agile- piece  of dev soft 
+product backlog-coll of req -po
+spt plan meeting
+
+sm -followed the agile p or not
+pb-commit feature only 1-4 week
+
+sm create chart depends 
+sreview op-sm
+
+
+
+Request: An HTTP GET request is sent to /data.
+Controller: MyController handles the request due to the @GetMapping annotation.
+Service: MyController calls the getData() method of MyService, which is injected using @Autowired.
+Response: MyService returns a MyData object, which is serialized into JSON and returned as the response.
+
+Inversion of Control (IoC): Spring's IoC container manages the creation and dependencies of controller beans.
+Dependency Injection (DI): Dependencies are injected into the controller, promoting loose coupling.
+Request Mapping: @RequestMapping, @GetMapping, @PostMapping, etc., annotations map specific URLs and HTTP methods to controller methods.
+Model: Controllers often use a Model object to pass data to views.
+Response Types: Controllers can return various response types, including JSON, XML, HTML, or redirects.
+
+
+
+@Configuration, Java developers can write codes by replacing large XML configuration files. indicate the application context, like service and other application components.
+
+memory 
+stack-var ,method
+heap- dyn allocation obj
+Heap: Used for dynamic memory allocation and storage of objects. It is further divided into the Young Generation (Eden space and Survivor spaces) and the Old Generation (Tenured Generation).
+Stack: Used for the execution of a thread. It stores method-specific values that are short-lived, including local variables and references to objects in the heap. 
+
+
+Queries are essential for retrieving specific data based on defined criteria
+sql,jpql,q p
+
+named: Predefined queries that can be associated with entities.
+
+named- entity layer
+
+
+login
+
+
+
+design compl, any point fail
+
+Query--Query refers to JPQL/HQL query with syntax similar to SQL generally used to execute DML statements(CRUD operations).
+
+NativeQuery
+
+Native query refers to actual SQL queries (referring to actual database objects). 
+These queries are the SQL statements that can be directly executed in the database using a database client.
+JPA : entityManager.createNativeQuery() Hibernate (Non-JPA implementation): session.createSQLQuery()
+
+NamedQuery
+Similar to how the constant is defined. NamedQuery is the way you define your query by giving it a name. 
+You can define this in mapping files of hibernate and also use annotations at the entity level.
+
+TypedQuery
+
+TypedQuery gives you an option to mention the type of entity when you create a query and therefore any operation thereafter does not need an explicit cast to the intended type.
+ Whereas the normal Query API does not return the exact type of Object you expect and you need to cast.
+
+
+
+
+
+The @PathVariable is used to measure dynamic parameters from the request URI and map them to method parameters in a controller,
+The annotation helps develop RESTful web services, allowing you to manage variable parameters. 
+@PathVariable, you can define more accurate mapping while requesting URIs and controller methods.
+
+In web applications, @RequestBody indicates a method parameter that binds the HTTP request body in the controller method.
+ The request’s body is mapped when users send requests to the server. 
+if the user sends a request body with details about the new users, the annotations will bind the API to the user object.
+
+
+
+@BodyQuery
+@autoWired- find the bean that matches that field or parameter. The @Autowired is used to inject in three ways: field, setter, and constructor injection. 
+ Autowired annotation in Spring Boot manages the entire life cycle of the object.
+
+ @Autowired
+    private MyRepository myRepository; // field injection
+    
+    @Autowired
+    public MyService(@Qualifier("myRepositoryImpl") MyRepository myRepository) {
+        this.myRepository = myRepository; // constructor injection
+    }
+    
+    @Autowired
+    public void setMyRepository(@Qualifier("myRepositoryImpl") MyRepository myRepository) {
+        this.myRepository = myRepository; // setter injection
+    }
+
+Qualifier -- eliminate the issue of which bean needs to be injected.
+Primary---defines a preference when multiple beans of the same type are present. 
+
+
+The @RestController combines the functionality of @Respondbody and @Controller annotations. The annotation makes creating RESTful endpoints that return XML, JSON
+
+Use @RequestMapping Instead of @GetMapping
+@GetMapping and @PostMapping are specific HTTP method annotations that require more requests. However, using @RequestMapping will be more helpful as you manage multiple HTTP methods for the same URL. 
+ 
+The @Repository annotation is used to interact with different databases,@Repository annotation, Spring Boot automatically creates and adds the required context,
+ The @Repository annotation is a marker for the class that performs the role of data access object.
+Using @Repository, you can develop flexible, reusable, and modular repositories that the Spring Data framework can easily handle.
+
+
+Use @Transient for fields that should not be persisted.
+Use @JsonIgnore for fields that should not be included in the JSON response.
+Use @Column(updatable = false) for fields that should not be updated.
+Use DTOs for fine-grained control over data exposed through APIs.
+Use custom queries when you need to retrieve a subset of fields from the database.
