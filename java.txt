@@ -62,6 +62,8 @@ adviceco
 
 5 scope
 1. Singleton Scope (Default)-Only one instance of the bean is created per Spring container, and it’s reused for every request.
+database connections, thread pools, and configuration settings.
+
 2. Prototype Scope-A new instance is created each time the bean is requested.
 3. Request Scope- One instance of the bean is created per HTTP request.
 4. Session Scope-One instance of the bean is per HTTP session.
@@ -184,7 +186,7 @@ if the user sends a request body with details about the new users, the annotatio
 
 
 
-@BodyQuery
+
 @autoWired- find the bean that matches that field or parameter. The @Autowired is used to inject in three ways: field, setter, and constructor injection. 
  Autowired annotation in Spring Boot manages the entire life cycle of the object.
 
@@ -204,6 +206,7 @@ if the user sends a request body with details about the new users, the annotatio
 Qualifier -- eliminate the issue of which bean needs to be injected.
 Primary---defines a preference when multiple beans of the same type are present. 
 
+@RequestMapping: Maps HTTP requests with the base URL /api/users to this controller.
 
 The @RestController combines the functionality of @Respondbody and @Controller annotations. The annotation makes creating RESTful endpoints that return XML, JSON
 
@@ -220,3 +223,15 @@ Use @JsonIgnore for fields that should not be included in the JSON response.
 Use @Column(updatable = false) for fields that should not be updated.
 Use DTOs for fine-grained control over data exposed through APIs.
 Use custom queries when you need to retrieve a subset of fields from the database.
+
+
+The toString() method is available for all objects in Java, either through inheritance or overriding.
+The Arrays.toString() method is specifically used to convert arrays into a string representation.
+to return a string representation of an object.
+
+DispatcherServlet: The front controller that handles all incoming requests.
+Controllers: Handle specific API endpoints and request processing.
+Services: Implement the core business logic.
+Repositories: Interact with the database.
+@RestController: A specialized controller annotation that combines @Controller and @ResponseBody for REST APIs.
+@RequestMapping: Maps HTTP requests to controller methods.
