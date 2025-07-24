@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Copy Icon Tooltip Animation</title>
+  <link href="https://unpkg.com/primeicons/primeicons.css" rel="stylesheet" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f4f4f4;
+    }
+
+    #messages-wrapper {
+      max-width: 600px;
+      margin: auto;
+    }
+
+    .message-container {
+      position: relative;
+      background: #fff;
+      padding: 12px 40px 12px 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    .message-text {
+      font-size: 16px;
+      color: #333;
+    }
+
+    .copy-icon {
+      position: absolute;
+      right: 10px;
+      top: 12px;
+      cursor: pointer;
+      font-size: 18px;
+      display: none;
+      color: #888;
+    }
+
+    .copied-tooltip {
+      position: absolute;
+      top: -30px;
+      right: 5px;
+      background: #d1f3d1;
+      color: #155724;
+      font-size: 13px;
+      padding: 4px 8px;
+      border-radius: 4px;
+      opacity: 0;
+      transform: translateY(-5px);
+      pointer-events: none;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      white-space: nowrap;
+    }
+
+    .copied-tooltip.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <div id="messages-wrapper"></div>
+
+  <script>
+    const messages = [
+      { text: 'Message 1: Welcome to tooltip animation' },
+      { text: 'Message 2: Hover to see icon' },
+      { text: 'Message 3: Click icon to copy' }
+    ];
+
+    function renderMessagesToDOM(messages) {
+      const wrapper = document.getElementById("messages-wrapper");
+      wrapper.innerHTML = "";
+
+      messages.forEach((msg, index) => {
+        const container = document.createElement("div");
+        container.className = "message-container";
+
+        const textSpan = document.createElement("span");
+        textSpan.className = "message-text";
+        textSpan.textContent = msg.text;
+
+        const icon = document.createElement("i");
+        icon.className = "pi pi-copy copy-icon";
+
+        const tooltip = document.createElement("div");
+        tooltip.className = "copied-tooltip";
+        tooltip.textContent = "Copied!";
+
+        container.appendChild(textSpan);
+        container.appendChild(icon);
+        container.appendChild(tooltip);
+        wrapper.appendChild(container);
+
+        container.addEventListener("mouseover", () => {
+          icon.style.display = "block";
+        });
+
+        container.addEventListener("mouseleave", () => {
+          icon.style.display = "none";
+          tooltip.classList.remove("visible");
+        });
+
+        icon.addEventListener("click", () => {
+          navigator.clipboard.writeText(msg.text);
+          tooltip.classList.add("visible");
+
+          setTimeout(() => {
+            tooltip.classList.remove("visible");
+          }, 1200);
+        });
+      });
+    }
+
+    renderMessagesToDOM(messages);
+  </script>
+</body>
+</html>
+
+
+<template>
+  <div class="text-loader">Loading<span class="dots"></span></div>
+</template>
+
+<style>
+.text-loader {
+  font-weight: bold;
+  font-size: 18px;
+  font-family: sans-serif;
+}
+
+.dots::after {
+  content: '';
+  animation: dots 1s steps(4, end) infinite;
+}
+
+@keyframes dots {
+  0%   { content: ''; }
+  25%  { content: '.'; }
+  50%  { content: '..'; }
+  75%  { content: '...'; }
+  100% { content: ''; }
+}
+</style>
